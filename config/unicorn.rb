@@ -36,7 +36,7 @@ end
 timeout 30
 
 # feel free to point this anywhere accessible on the filesystem
-pid pid_path
+# pid pid_path
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
