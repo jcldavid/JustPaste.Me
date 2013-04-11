@@ -1,34 +1,92 @@
-@import 'compass';
-@import 'susy';
+@import "normalize";
+@import "compass";
+@import "mixins";
 
-@import 'partials/variables';
-@import 'partials/normalize';
-@import 'partials/h5bp';
-@import 'partials/base';
-@import "partials/layout";
+$line-num-width: 40px;
+$line-num-x-padding: 4px;
+$base-font-size: 13px;
+$code-x-padding: 1em;
 
-/* Drop your styles in here! */
+$header-bg: #20201E;
+$code-bg: #2b2a27;
+$line-num-bg: #1C180D;
+
+@import "peacock";
+
+@include establish-baseline;
+
+body, html {
+  background: $code-bg;
+  height: 100%;
+}
+
 header {
-  h1 {
-    @include text-shadow(#ccc 1px 1px 3px);
+  background: $header-bg;
+  padding: 0 1em;
+  z-index: 90;
+  position: relative;
+  overflow: hidden;
+}
 
-    font-weight: bold;
-    letter-spacing: -1px;
-    margin: 0.8em 0;
+@include keyframes("wee") {
+  25% {color: rgba(white, .7); @include rotate(2deg)}
+  50% {color: white; @include rotate(0)}
+  75% {color: rgba(white, .7); @include rotate(-2deg)}
+  100% {color: white; @include rotate(0)}
+}
+
+h1 {
+  font-weight: normal;
+  margin-left: $line-num-width + $line-num-x-padding;
+
+  a {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    text-decoration: none;
+    color: rgba(white, .7);
+    display: inline-block;
+
+    &:hover {
+      color: white;
+      -webkit-animation: wee .6s linear infinite;
+    }
   }
 }
 
-#sidebar {
-  color: #777;
+.highlighttable {
+  width: 100%;
+  .linenos {
+    position: relative;
+    padding: 0 $line-num-x-padding;
+    z-index: 90;
+    text-align: right;
+    color: gray;
+  }
+  .highlight {
+    padding-left: $code-x-padding;
+    .placeholder {
+      color: gray;
+    }
+  }
+}
 
-  img {
-    @include box-shadow(#ccc 1px 1px 3px);
+kbd {
+  border: 1px solid rgba(gray, .3);
+  @include border-radius(2px);
+  padding-left: 3px;
+  padding-right: 3px;
+}
 
-    background: #eee;
-    border: 1px solid #bbb;
-    display: block;
-    padding: 0.25em;
-    max-width: 97%;
+.linenos {
+  background: $line-num-bg;
+  width: $line-num-width - $line-num-x-padding;
+
+  &.absolute {
+    position: absolute;
+    width: $line-num-width + $line-num-x-padding;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
   }
 }
 
