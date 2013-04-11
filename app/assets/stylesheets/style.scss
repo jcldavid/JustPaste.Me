@@ -1,4 +1,3 @@
-@import "normalize";
 @import "compass";
 @import "mixins";
 
@@ -12,8 +11,7 @@ $code-bg: #2b2a27;
 $line-num-bg: #1C180D;
 
 @import "peacock";
-
-@include establish-baseline;
+@import "normalize";
 
 body, html {
   background: $code-bg;
@@ -37,7 +35,7 @@ header {
 
 h1 {
   font-weight: normal;
-  margin-left: $line-num-width + $line-num-x-padding;
+  margin: 0 0 0 $line-num-width + $line-num-x-padding;
 
   a {
     font-family: 'Yanone Kaffeesatz', sans-serif;
@@ -54,6 +52,8 @@ h1 {
 
 .highlighttable {
   width: 100%;
+  line-height: 18px;
+
   .linenos {
     position: relative;
     padding: 0 $line-num-x-padding;
