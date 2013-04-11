@@ -23,6 +23,7 @@ group :sinatra do
 end
 
 group :assorted do
+  gem 'pygments.rb'
   gem 'pony' # email
   gem 'erubis' # faster better stronger
   gem 'escape_utils', :require => %w(
