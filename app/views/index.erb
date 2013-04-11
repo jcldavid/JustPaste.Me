@@ -1,18 +1,49 @@
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p><%= link_to 'Go home', '/' %> <code><==</code> <em>made with <code>link_to</code> helper!</em></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><span class="placeholder">Press <kbd>ctrl</kbd> + <kbd>v</kbd> to paste code.</span></div>
+</td></tr></table>
 
-<h2>Form Tag Helpers</h2>
-<form action='/'>
-  <p>
-    <b><code>input_for</code></b><br>
-    <%= input_for 'input' %><br>
-    <%= link_to 'See this filled with "here is some input"', '/?input=here is some input' %>
-    <%= '<br>notice how the value gets set to the value of <code>params[:input]</code> :)' if params[:input] %>
-  </p>
-  <p>
-    <b><code>select_for</code></b><br>
-    <%= select_for 'select', { 'Nothing' => :zero, 'One' => :one, 'The second' => :two } %><br>
-    <%= link_to 'See the second option selected', '/?select=one' %>
-    <%= '<br>oooooh... <b>ahhhhhh</b>' if params[:select] %>
-  </p>
-</form>
+<script src="<%= javascript_path('jquery-1.9.1.min.js') %>"></script>
+<script src="<%= javascript_path('keymage.min.js') %>"></script>
+
+<!-- http://www.zurb.com/playground/jquery-raptorize -->
+<script>
+  var raptorMarkup = '<img id="elRaptor" style="display: none" src="<%= image_path('raptor.png') %>" /><audio id="elRaptorShriek" preload="auto"><source src="<%= audio_path('raptor-sound.mp3') %>" /><source src="<%= audio_path('raptor-sound.ogg') %>" /></audio>';
+  var locked = false;
+  $('body').append(raptorMarkup);
+  var raptor = $('#elRaptor').css({
+    "position":"fixed",
+    "bottom": "-700px",
+    "right" : "0",
+    "display" : "block"
+  })
+  function init() {
+    locked = true;
+
+    //Sound Hilarity
+    document.getElementById('elRaptorShriek').play();
+
+    // Movement Hilarity
+    raptor.animate({
+      "bottom" : "0"
+    }, function() {
+      $(this).animate({
+        "bottom" : "-130px"
+      }, 100, function() {
+        var offset = (($(this).position().left)+400);
+        $(this).delay(300).animate({
+          "right" : offset
+        }, 2200, function() {
+          raptor = $('#elRaptor').css({
+            "bottom": "-700px",
+            "right" : "0"
+          })
+          locked = false;
+        })
+      });
+    });
+  }
+  keymage('defmod-v', function() {
+    if(!locked) {
+      init();
+    }
+  });
+</script>
