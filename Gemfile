@@ -15,6 +15,8 @@ gem 'unicorn'
 # sinatra
 group :sinatra do
   gem 'sinatra'
+  gem 'dm-postgres-adapter'
+  gem 'data_mapper'
   gem 'sinatra-flash', :require => %w(sinatra/flash)
   gem 'sinatra-contrib', :require => %w(
     sinatra/namespace
@@ -23,7 +25,8 @@ group :sinatra do
 end
 
 group :assorted do
-  gem 'pygments.rb'
+  gem 'pygments.rb', :git => 'git://github.com/mvj3/pygments.rb.git'
+  gem 'awesome_print'
   gem 'pony' # email
   gem 'erubis' # faster better stronger
   gem 'escape_utils', :require => %w(

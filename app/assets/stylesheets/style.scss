@@ -52,7 +52,10 @@ h1 {
 
 .highlighttable {
   width: 100%;
-  line-height: 18px;
+
+  pre {
+    line-height: 18px;
+  }
 
   .linenos {
     position: relative;
@@ -60,11 +63,18 @@ h1 {
     z-index: 90;
     text-align: right;
     color: gray;
+    pre {
+      width: $line-num-width - $line-num-x-padding;
+    }
   }
   .highlight {
+    overflow: auto;
     padding-left: $code-x-padding;
     .placeholder {
       color: gray;
+    }
+    pre {
+      white-space: pre;
     }
   }
 }

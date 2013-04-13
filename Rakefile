@@ -13,7 +13,7 @@ end
 
 desc "Start Unicorn in development mode"
 task :s do
-  system("unicorn -c config/unicorn.rb -E development")
+  system("unicorn -c config/unicorn.rb -E development -p 35729")
 end
 
 desc "Star memcached as a daemon"
