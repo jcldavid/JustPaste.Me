@@ -27,6 +27,7 @@ end
 group :assorted do
   gem 'pygments.rb', :git => 'git://github.com/mvj3/pygments.rb.git'
   gem 'awesome_print'
+  gem 'json' # email
   gem 'pony' # email
   gem 'erubis' # faster better stronger
   gem 'escape_utils', :require => %w(

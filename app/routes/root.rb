@@ -15,14 +15,15 @@ namespace '/' do
   end
 
   post 'new' do
-    if params[:content].nil? or params[:lexer].nil?
+    params = JSON.parse(request.body.read)
+    if params["content"].nil? or params["lexer"].nil?
       status 403
       puts params.inspect
       'Incomplete.'
     else
       paste = Paste.new(
-        :content => params[:content],
-        :lexer => params[:lexer]
+        :content => params["content"],
+        :lexer => params["lexer"]
       )
       if paste.save then
         status 200
@@ -35,8 +36,8 @@ namespace '/' do
   end
 
   get 'view/:paste_id' do
-    raise Sinatra::NotFound unless params[:paste_id].match /\d+/
-    paste = Paste.get(params[:paste_id])
+    raise Sinatra::NotFound unless params["paste_id"].match /\d+/
+    paste = Paste.get(params["paste_id"])
     raise Sinatra::NotFound if paste.nil?
     @code = Pygments.highlight(paste.content, :options => {
       :linenos => 'table'
@@ -45,8 +46,8 @@ namespace '/' do
   end
 
   get 'raw/:paste_id' do
-    raise Sinatra::NotFound unless params[:paste_id].match /\d+/
-    paste = Paste.get(params[:paste_id])
+    raise Sinatra::NotFound unless params["paste_id"].match /\d+/
+    paste = Paste.get(params["paste_id"])
     raise Sinatra::NotFound if paste.nil?
     paste.content
   end

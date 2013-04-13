@@ -152,6 +152,7 @@ DEPENDENCIES
   dm-postgres-adapter
   erubis
   escape_utils
+  json
   kgio
   pony
   pygments.rb!
