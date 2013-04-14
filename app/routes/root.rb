@@ -1,5 +1,5 @@
 namespace '/' do
-  @offset = 100
+  offset = 100
 
   get do
     erb 'index'
@@ -18,7 +18,7 @@ namespace '/' do
       )
       if paste.save then
         status 200
-        (paste.id + @offset).to_s(30)
+        (paste.id + offset).to_s(30)
       else
         status 500
         'Something went terribly wrong.'
@@ -28,7 +28,7 @@ namespace '/' do
 
   get 'view/:paste_id' do
     raise Sinatra::NotFound unless params[:paste_id].match /\d+/
-    paste = Paste.get(params[:paste_id].to_i(30) - @offset)
+    paste = Paste.get(params[:paste_id].to_i(30) - offset)
     raise Sinatra::NotFound if paste.nil?
     @code = Pygments.highlight(paste.content, :options => {
       :linenos => 'table'
