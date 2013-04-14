@@ -1,16 +1,7 @@
 namespace '/' do
-  before {
-    @title = 'Hey there!';
-  }
-  get do
-    # example usage of run_later
-    #   wait 3 seconds after URL is called
-    #   output to console
-    run_later do
-      # sleep 3 # go ahead and wait
-      logger.info "\nLengthy process has finished!\n\n" # outputs to the log AFTER the page has rendered because run_later doesn't block the rest of the process :)
-    end
+  @offset = 100
 
+  get do
     erb 'index'
   end
 
@@ -27,7 +18,7 @@ namespace '/' do
       )
       if paste.save then
         status 200
-        (paste.id + 100).to_s(30)
+        (paste.id + @offset).to_s(30)
       else
         status 500
         'Something went terribly wrong.'
@@ -36,8 +27,8 @@ namespace '/' do
   end
 
   get 'view/:paste_id' do
-    raise Sinatra::NotFound unless params["paste_id"].match /\d+/
-    paste = Paste.get(params["paste_id"].to_i(30) - 100)
+    raise Sinatra::NotFound unless params[:paste_id].match /\d+/
+    paste = Paste.get(params[:paste_id].to_i(30) - @offset)
     raise Sinatra::NotFound if paste.nil?
     @code = Pygments.highlight(paste.content, :options => {
       :linenos => 'table'
@@ -52,7 +43,6 @@ namespace '/' do
     paste.content
   end
 end
-
 
 not_found do
   erb '404'
